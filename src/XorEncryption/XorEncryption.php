@@ -10,8 +10,6 @@ namespace XorEncryption;
 
 class XorEncryption {
 
-    public $sourceID = "XOR";
-    public $secret = "yJadUPf2";
     private $disturbLen = 6;
     private $key;
     private $lkey;
@@ -19,17 +17,11 @@ class XorEncryption {
     private $ckey;
 
     /**
-     * @param string $key 16位md5加密
+     * @param string $key
      */
-    public function __construct($key = '')
+    public function __construct($key = 'xor-encryption')
     {
-        if (strlen($key) == 16 && preg_match("/^[a-z]/i", $key)) {  //16位md5加密过的字符串首字符如果是字母
-            $this->key = sha1($key . $this->sourceID);
-        } elseif (strlen($key) == 16 && preg_match("/^[0-9]/i", $key)) {  //16位md5加密过的字符串首字符如果是数字
-            $this->key = sha1($key . $this->secret);
-        } else {
-            $this->key = sha1(md5($this->sourceID . $this->secret));
-        }
+        $this->key = sha1(md5($key));
         $this->lkey = sha1(substr($this->key, 0, 20));
         $this->rkey = sha1(substr($this->key, 20, 20));
     }
